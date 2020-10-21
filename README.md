@@ -1,4 +1,6 @@
 # traffic_simulation
+## Python2 used
+Incompatibility only in terms of print statements so far
 ## Domain name: Traffic management in urban areas
 ## Specifics: 
 Overcrowding of roads due to people referring to navigational sites and a majority of them using the same routes.
