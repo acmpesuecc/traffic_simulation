@@ -24,6 +24,7 @@ distribution = {
 
 # Initial car count at each node
 cars_initial = {'A':10, 'B':20, 'C':30, 'D':40, 'E':50, 'F':60}
+hello = { }
 
 # Congestion model: cars -> time penalty
 number_of_cars_time = {10:1, 20:2, 30:4, 40:8, 50:16, 60:32, 70:64, 80:128, 90:256}
