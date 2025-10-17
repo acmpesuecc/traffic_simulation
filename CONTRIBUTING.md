@@ -1,11 +1,8 @@
 # Contributing to Traffic Simulator
 The following is a set of guidelines for contributing to Traffic Simulator and its packages, which are hosted in the ACM PES University, EC Campus on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
-## Code of Conduct
-Given in [CODE_OF_CONDUCT.md](https://github.com/acmpesuecc/traffic_simulation/CODE_OF_CONDUCT.md)
-
 ## For queries
-Contact shr1010@gmail.com
+Contact [Rex-8](https://github.com/Rex-8)
 
 ## Getting Started
 It is generally recognized that the foundational data structure to support navigation in a space is the navigation graph, whose edges represent paths of travel and whose nodes represent decision points, landmarks, or other places where information needs to be conveyed to or presented.
