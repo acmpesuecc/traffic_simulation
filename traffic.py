@@ -98,6 +98,55 @@ def change_weights():
         for j in cars_initial:
             if i[0] == j:
                 i[2] = calc_weight(i, cars_initial[j])
+                
+
+def bellman_ford(edges,start,end):
+    # collect nodes
+    nodes = set()
+    for u, v, w in edges:
+        nodes.add(u)
+        nodes.add(v)
+
+    if start not in nodes or end not in nodes:
+        return float("inf")
+
+    # initialize distances and predecessors
+    dist = {n: float('inf') for n in nodes}
+    prev = {n: None for n in nodes}
+    dist[start] = 0
+
+ 
+    for _ in range(len(nodes) - 1):
+        updated = False
+        for u, v, w in edges:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                prev[v] = u
+                updated = True
+        if not updated:
+            break
+
+    for u, v, w in edges:
+        if dist[u] + w < dist[v]:
+            return float("inf")
+
+    if dist[end] == float('inf'):
+        return float("inf")
+    
+    rev = []
+    node = end
+    while node is not None:
+        rev.append(node)
+        node = prev.get(node)
+    if rev[-1] != start:
+        return float("inf")
+    path_nodes = rev[::-1]  
+
+    nested = ()
+    for n in path_nodes:
+        nested = (n, nested)
+
+    return (dist[end], nested)
 
 # Main simulation
 if __name__ == "__main__":
