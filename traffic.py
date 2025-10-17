@@ -4,10 +4,28 @@ This code works but has known issues for participants to fix/improve
 """
 
 from collections import defaultdict
-from heapq import *
+from heapq import *  # Uses heapq (binary heap) for priority queue operations
 from copy import deepcopy
 
+
 # Network topology: [from, to, base_distance]
+
+effi_analysis = """
+Efficiency Analysis of Current Implementation:
+
+Algorithm: Dijkstra shortest path using heapq (we use the binary heap tho)
+data Structures Used: heapq for the priority queue, defaultdict(list) for the adjacency list.
+
+Time Complexity: O(E log V)
+since each edge is considered once, and each relaxation involves a heap operation, the total cost becomes O(log V) each.
+
+Space Complexity: O(V + E)
+graph storage (adjacency list) plus the distance and arrays that came before.
+
+Summary: standard efficiency for Dijkstra with a binary heap. suitable for small to medium graphs, 
+but slower than compiled libraries for large datasets.good for these smaller use cases but not recommended for larger cases
+"""
+
 distances = [['A','B',1], ['A','C',3], ['B','C',1], ['B','D',5], 
              ['C','B',2], ['C','E',1], ['D','E',7], ['D','F',2], 
              ['E','D',1], ['E','F',1]]
@@ -21,6 +39,16 @@ distribution = {
     'E': [('E',0.7), ('D',0.1), ('F',0.2)],
     'F': [('F',1)]
 }
+docu_analysis = """
+Implementation Documentation and Comments:
+
+uses heapq for priority queue operations.
+each push/pop is O(log V), leading to total time complexity O(E log V).
+space complexity O(V + E) for adjacency list and tracking the distance .
+
+
+"""
+
 
 # Initial car count at each node
 cars_initial = {'A':10, 'B':20, 'C':30, 'D':40, 'E':50, 'F':60}
@@ -147,6 +175,26 @@ def bellman_ford(edges,start,end):
         nested = (n, nested)
 
     return (dist[end], nested)
+library_comparison = """
+Comparison with Graph Libraries:
+
+1. Stdlib (heapq + defaultdict)
+    Benefits: No external dependencies, transparent, good up to lower no. of edges.
+    Trade-offs: Slower for massive graphs, manual path reconstruction.
+
+2. NetworkX
+    Benefits: Easy to use, rich algorithm support, great for learning and prototyping.
+    Trade-offs: Very slow for large graphs due to pure Python implementation.
+
+3. igraph
+    Benefits: C core, fast, scalable, multi-language (Python,C)
+    Trade-offs: External dependency, less Pythonic API(who cares tho).
+
+4. graph-tool
+    Benefits: Extremely fast (C++/Boost backend), handles huge graphs.
+    Trade-offs: Difficult installation, complex API, suited for research-level performance.
+"""
+
 
 # Main simulation
 if __name__ == "__main__":
@@ -205,8 +253,26 @@ if __name__ == "__main__":
             if i[2] == t:
                 clock.remove(i)
         t += 1
-    
+
     print(path, t)
     print("\nSimulation complete!")
     print("NOTE: This is base code with known issues.")
     print("See GitHub issues for improvement tasks.")
+benchmark_summary = """
+benchmark summary (approx):
+
+Library              1K/10K Edges  10K/100K Edges 100K/1M Edges(edges or no of connections btw vertices) 
+
+Stdlib (heapq)        ~0.02 s       ~0.5 s          ~6 s          
+NetworkX              ~0.1 s        ~3 s            ~>60 s        
+igraph                ~0.01 s       ~0.2 s          ~1 s          
+graph-tool            ~0.005 s      ~0.1 s          ~0.6 s        
+
+(values are taken from https://www.ultipa.com/article/benchmarks and stackoverflow )
+
+
+
+final analysis:for large or performance-critical workloads, consider compiled libraries such as igraph,
+which can offer 5 to 10x speed improvements due to optimized Cpp backends.
+
+"""
